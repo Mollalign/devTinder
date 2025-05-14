@@ -2,21 +2,20 @@ const express = require('express');
 
 const app = express();
 
-app.get("/user", (req,res) => {
-  res.send({firstName: "Mollalign", lastName: "Daniel"});
+const {adminAuth, userAuth} = require("./middlewares/auth");
+
+app.use("/admin", adminAuth);
+
+app.get("/user", userAuth, (req, res) => {
+  res.send("user data sent");
 });
 
-app.post("/user", (req, res) => {
-  res.send("Data is Saved successfully in The Database");
+app.get("/admin/getAllData", (req, res) => {
+  res.send("get all Data");
 });
-
-app.delete("/user", (req, res) => {
-  res.send("Deleted!");
-});
-
 
 app.listen(3000, () => {
   console.log('Server is listening on Port http://localhost:3000/');
-});
+}); 
 
 
