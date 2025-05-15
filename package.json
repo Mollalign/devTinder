@@ -13,6 +13,8 @@
   "author": "Mollalign Daniel",
   "license": "ISC",
   "dependencies": {
-    "express": "^5.1.0"
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "mongoose": "^8.14.3"
   }
 }

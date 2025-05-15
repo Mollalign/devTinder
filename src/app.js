@@ -1,21 +1,36 @@
+require('dotenv').config();
 const express = require('express');
-
+const connectDB = require("./config/db");
 const app = express();
+const User = require("./models/user");
 
-const {adminAuth, userAuth} = require("./middlewares/auth");
-
-app.use("/admin", adminAuth);
-
-app.get("/user", userAuth, (req, res) => {
-  res.send("user data sent");
+app.post("/signup", async (req, res) => {
+  // Creating new instance of the user model
+  const user = new User({
+    firstName: "Mollalign",
+    lastName: "Daniel",
+    emailId: "molledan26@gmail.com",
+    password: "astro620it"
+  });
+  
+  try {
+   await user.save();
+   res.send("User Added Successfully!!");
+  } catch (err) {
+   res.status(400).send("Error saving the user: " + err.message);
+  }
+  
 });
 
-app.get("/admin/getAllData", (req, res) => {
-  res.send("get all Data");
-});
-
-app.listen(3000, () => {
+connectDB().then(() => {
+  console.log("Database connection established...");
+  app.listen(3000, () => {
   console.log('Server is listening on Port http://localhost:3000/');
 }); 
+}).catch(err => {
+  console.log("Database cannot be connected!!");
+  console.log(err);
+}); 
+
 
 
