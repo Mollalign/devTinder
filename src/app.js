@@ -8,9 +8,13 @@ app.use(express.json());
 
 app.post("/signup", async (req, res) => {
   // Creating new instance of the user model
-  const user = new User(req.body);
+  const data = req.body;
+  const user = new User(data);
   
   try {
+    if(data?.skills.length > 10) {
+      throw new Error("Skills cannot be more than 10");
+    }
    await user.save();
    res.send("User Added Successfully!!");
   } catch (err) {
