@@ -10,7 +10,7 @@ const signup = async (req, res) => {
     const { firstName, lastName, emailId, password } = req.body;
 
     // Encrypt the password
-    const passwordHash = await bcrypt.hash(password, 10)
+    const passwordHash = await bcrypt.hash(password, 10);
     // Creating new instance of the user model
     const user = new User({
       firstName,
@@ -53,7 +53,9 @@ const signin = async (req, res) => {
 }
 
 const logout = async (req, res) => {
-  
+  res.cookie("token", null, {
+    expires: new Date(Date.now()),
+  }).send();
 }
 
 module.exports = {
