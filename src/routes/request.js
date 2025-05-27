@@ -4,6 +4,6 @@ const {request} = require("../controllers/requestController");
 const { userAuth } = require("../middlewares/auth");
 
 
-requestRouter.post("/sendConnectionRequest", userAuth, request);
+requestRouter.post("/request/send/:status/:userId", userAuth, request);
 
 module.exports = requestRouter;
